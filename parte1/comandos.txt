@@ -1,0 +1,73 @@
+# PARTE 1 — Docker CLI y Comandos Básicos
+# Grupo 3
+
+# ===== Ejercicio 1.1: Gestión de Contenedores =====
+# 1) Descargar la imagen oficial de nginx:alpine
+Comando:
+  docker pull nginx:alpine
+
+# 2) Crear y ejecutar contenedor web-examen en modo detached, mapeando 8080:80
+Comando:
+  docker run -d --name web-examen -p 8080:80 nginx:alpine
+
+# 3) Verificar que el contenedor está corriendo
+Comando:
+  docker ps --filter name=web-examen
+
+# 4) Obtener logs del contenedor
+Comando:
+  docker logs --tail 50 web-examen
+
+# 5) Inspeccionar y obtener su IP
+Comando:
+  docker inspect -f '{{range .NetworkSettings.Networks}}{{{{.IPAddress}}}}{{end}}' web-examen
+
+# 6) Detener y eliminar el contenedor
+Comandos:
+  docker stop web-examen
+  docker rm web-examen
+
+
+# ===== Ejercicio 1.2: Volúmenes y Persistencia =====
+# 1) Crear un volumen llamado datos-examen
+Comando:
+  docker volume create datos-examen
+
+# 2) Ejecutar Postgres con persistencia
+Comando:
+  docker run -d --name db-examen \
+    -e POSTGRES_PASSWORD=examen123 \
+    -e POSTGRES_DB=testdb \
+    -v datos-examen:/var/lib/postgresql/data \
+    -p 5432:5432 \
+    postgres:15-alpine
+
+# 3) Verificación de inicio + persistencia
+#    (a) Verificar contenedor y logs
+Comandos:
+  docker ps --filter name=db-examen
+  docker logs --tail 50 db-examen
+
+#    (b) Crear un objeto en la DB para comprobar persistencia
+#        (psql viene dentro de la imagen)
+Comando:
+  docker exec -i db-examen psql -U postgres -d testdb -c "CREATE TABLE IF NOT EXISTS prueba_examen(id SERIAL PRIMARY KEY, nombre TEXT);"
+
+#    (c) Detener y eliminar contenedor (el volumen persiste)
+Comandos:
+  docker stop db-examen
+  docker rm db-examen
+
+#    (d) Volver a crear con el mismo volumen y verificar que la tabla sigue
+Comandos:
+  docker run -d --name db-examen \
+    -e POSTGRES_PASSWORD=examen123 \
+    -e POSTGRES_DB=testdb \
+    -v datos-examen:/var/lib/postgresql/data \
+    -p 5432:5432 \
+    postgres:15-alpine
+
+  docker exec -i db-examen psql -U postgres -d testdb -c "\dt"
+
+# ===== Fin Parte 1 =====
+# TIP: Ejecuta 'bash run.sh' en esta carpeta para generar automáticamente salidas reales (quedarán en este archivo).
