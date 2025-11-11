@@ -1,0 +1,27 @@
+# PARTE 3 — Docker Compose (API + Web + DB)
+# Estudiante: Rommen J Durand
+
+# Levantar todo el stack
+Comando:
+  docker-compose up -d
+
+# Verificar servicios corriendo
+Comando:
+  docker-compose ps
+
+# Probar API
+Comandos:
+  curl http://localhost:3000/
+  curl http://localhost:3000/salud
+
+# Probar Web
+Comando:
+  curl -I http://localhost:8080/
+
+# Ver logs
+Comando:
+  docker-compose logs api --tail=100
+
+# Detener y limpiar todo con volúmenes
+Comando:
+  docker-compose down -v
