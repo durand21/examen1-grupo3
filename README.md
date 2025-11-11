@@ -1,4 +1,4 @@
-# Examen Docker — David Joel Rivas Ortega
+# Examen Grupo 3
 
 Esta carpeta cumple la estructura exacta del examen y trae **scripts opcionales** `run.sh` para llenar automáticamente los `comandos.txt` con salidas reales.
 
@@ -6,25 +6,25 @@ Esta carpeta cumple la estructura exacta del examen y trae **scripts opcionales*
 ```
 david-joel-rivas-ortega-examen/
 ├── parte1/
-│   ├── comandos.txt      # comandos y script opcional para evidencias
-│   └── run.sh            # (opcional) llena comandos.txt con salidas reales
+│   ├── comandos.txt     
+│   └── run.sh            
 ├── parte2/
 │   ├── Dockerfile
 │   ├── app.py
 │   ├── requirements.txt
 │   ├── .dockerignore
 │   ├── comandos.txt
-│   └── run.sh            # (opcional) construye, corre, prueba y documenta
+│   └── run.sh            
 └── parte3/
     ├── docker-compose.yml
     ├── api/
-    │   ├── Dockerfile    # multi-stage (punto extra)
+    │   ├── Dockerfile    
     │   ├── server.js
     │   └── package.json
     ├── web/
     │   └── index.html
     ├── comandos.txt
-    └── run.sh            # (opcional) levanta, prueba, logs y limpia
+    └── run.sh            
 ```
 
 ## Requisitos previos
@@ -36,6 +36,6 @@ david-joel-rivas-ortega-examen/
 ### Parte 1 (CLI)
 ```bash
 cd parte1
-bash run.sh     # o copia/pega desde comandos.txt
+bash run.sh     
 ```
 
